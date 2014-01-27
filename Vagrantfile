@@ -54,7 +54,7 @@ tmp=`mktemp -q` && {
     rm "$tmp"
 }
 
-apt-get install -q -y git-all
+apt-get install -q -y git
 git clone http://github.com/hacklabr/timtec-php-env
 
 # If the number of installed packages is greater than 0, we want to reboot (the
