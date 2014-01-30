@@ -1,1 +1,65 @@
+*.py[cod]
+
+# C extensions
+*.so
+
+# virtualenv
 env
+
+.vagrant
+
+# Packages
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+# lib
+lib64
+include
+
+# Installer logs
+pip-log.txt
+npm-debug.log
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Databases
+*.sqlite
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+.settings
+
+.coveralls.yml
+
+# Virtualenvs
+*env
+
+# OS Temp Files
+.DS_Store
+
+# Local configuration
+settings_local.py
+
+/static/css/main.css
+/static/css/main-admin.css
+/.cache
+/node_modules
+
+
+*.psqlc
