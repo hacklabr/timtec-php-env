@@ -12,7 +12,7 @@ Dockerfile
 The container includes an Ubuntu with php-fpm and nginx listening to requests
 on port 80
 
-The Document Root (/var/www) is mapped when the container is created
+The Document Root (/var/www) is mapped when a container is started
 
 Web App
 =======
