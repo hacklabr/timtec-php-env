@@ -1,6 +1,6 @@
 from importd import d
 
-import docker, redis, os
+import docker, redis, os, tarfile
 
 d(DEBUG=True)
 
@@ -20,7 +20,7 @@ def info(request, userid):
 
 @d("/<int:userid>/url/")
 def url(request, userid):
-    return d.HttpResponse("http://php%s.timtec.com.br/" % userid)
+    return {'url': "http://php%s.timtec.com.br/" % userid}
 
 @d("/<int:userid>/start/")
 def start(request, userid):
@@ -45,12 +45,12 @@ def start(request, userid):
         container = dock.inspect_container(userid)
         ip = container["NetworkSettings"]['IPAddress']
         red.sadd("frontend:%s" % url, "http://%s:80" % ip)
-    return d.HttpResponse('true')
+    return {'result': True}
 
 @d("/<int:userid>/stop/")
 def stop(request, userid):
     dock.stop(userid)
-    return d.HttpResponse('true')
+    return {'result': True}
 
 @d("/<int:userid>/restart/")
 def restart(request, userid):
@@ -61,11 +61,16 @@ def restart(request, userid):
 def rm(request, userid):
     dock.stop(userid)
     dock.remove_container(userid)
-    return d.HttpResponse('true')
+    return {'result': True}
 
 @d("/<int:userid>/documents/")
 def documents(request, userid):
-    pass
+    if request.method == 'GET':
+        return d.render_to_response("form.html")
+    tgz = request.FILES['tgz']
+    tf = tarfile.open(fileobj=tgz, mode="r:gz")
+    tf.extractall("/var/www/containers/%s/" % userid)
+    return {'result': True}
 
 if __name__ == "__main__":
     d.main()
