@@ -54,8 +54,16 @@ tmp=`mktemp -q` && {
     rm "$tmp"
 }
 
-apt-get install -q -y git
+apt-get install -q -y git redis
+git clone https://github.com/agentzh/lua-resty-redis.git
+cd lua-resty-redis
+make install
+cd ..
 git clone http://github.com/hacklabr/timtec-php-env
+cd timtec-php-env
+dpkg -i nginx*.deb
+make install
+/etc/init.d/nginx restart
 
 # If the number of installed packages is greater than 0, we want to reboot (the
 # backport kernel was installed but is not running).
