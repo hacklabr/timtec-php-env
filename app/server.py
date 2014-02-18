@@ -40,11 +40,11 @@ def start(request, userid):
             f.close()
 
     url = "php%s.timtec.com.br" % userid
-    if not red.sdiff("frontend:%s" % url, "dead:%s" % url):
-        red.spop("dead:%s" % url)
-        container = dock.inspect_container("php%s" % userid)
-        ip = container["NetworkSettings"]['IPAddress']
-        red.sadd("frontend:%s" % url, "http://%s:80" % ip)
+    red.delete("dead:%s" % url)
+    red.delete("frontend:%s" % url)
+    container = dock.inspect_container("php%s" % userid)
+    ip = container["NetworkSettings"]['IPAddress']
+    red.sadd("frontend:%s" % url, "http://%s:80" % ip)
     return {'result': True}
 
 @d("/<int:userid>/stop/")
