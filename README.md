@@ -14,6 +14,11 @@ on port 80
 
 The Document Root (/var/www) is mapped when a container is started
 
+Development
+===========
+
+vagrant up
+
 Web App
 =======
 
